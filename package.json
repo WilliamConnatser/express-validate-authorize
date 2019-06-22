@@ -1,0 +1,27 @@
+{
+  "name": "express-validate-authorize",
+  "version": "1.0.0",
+  "description": "An easy to implement and extensible Express API middleware that validates user input and permissions",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/WilliamConnatser/express-validate-authorize.git"
+  },
+  "keywords": [
+    "express",
+    "user",
+    "input",
+    "validation",
+    "and",
+    "authorization"
+  ],
+  "author": "William Connatser",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/WilliamConnatser/express-validate-authorize/issues"
+  },
+  "homepage": "https://github.com/WilliamConnatser/express-validate-authorize#readme"
+}
