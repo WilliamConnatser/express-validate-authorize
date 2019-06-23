@@ -55,7 +55,7 @@
 
 # Using Built-In Rules
  - Defined using key-value pairs
- - The key is the path of the variable starting after the `req` object
+ - The key is the path of the variable starting after the Express Request Object (`req`)
  - The value is the rules that the variable must meet
  - Rules can be chained together as necessary [IE. validat0r.required().number().range(1,100).userRole('admin')]
 ```
