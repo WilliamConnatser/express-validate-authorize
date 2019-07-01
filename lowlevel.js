@@ -23,7 +23,6 @@ function Validat0r(settings) {
         for (let i = 0; i < ifArray.length; i++) {
 
             command += ` ${parseIfObject(ifArray[i])} `;
-
         }
 
         return command;
@@ -104,7 +103,6 @@ function Validat0r(settings) {
 
         //Returns Express middleware
         return (req, res, next) => {
-
 
         }
     }

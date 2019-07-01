@@ -109,7 +109,7 @@
     then: [ //Then Array
         { //Then Object
             assignment: {
-                metaPath: String ('query' || 'body' || 'params' || 'headers')
+                metaPath: String ('query' || 'body' || 'params' || 'headers' || 'db')
                 macroPath: String (Anything after 'req.query' || 'req.body' || 'databaseTable' (etc. for all dataTypes) *IN DOT NOTATION*)
                         - Can be property names or functions- IE. .length or .slice(0,1) or database API functions IE. users.getOne()
                 microPath: String (Anything passed into a function)
@@ -128,3 +128,18 @@
 }
 ```
 
+
+
+name: String
+required: Boolean
+type: String ('query' || 'body' || 'params')
+dataType: String ('boolean' || 'string' || 'number' || 'id' || 'range' || 'json')
+range: [min, max]
+dbTable: String ('users' || 'categories' || 'challenges' || 'user_submissions' || 'challenges_categories')
+dbProtected: Boolean
+dbHooks: Object Literal with key (database column to be altered) value (String with code ran through eval()) pairs.
+dbUnique: Boolean
+dbUniqueWhere: Object Literal with key (column to match) value (value to match as a String to be parsed through eval()) using a knex .where()
+evals: Array of Strings (each String is code to be executed via eval() - used for more customized rules
+
+hooks
