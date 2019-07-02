@@ -61,25 +61,26 @@
 ```
 {
     'query.banana': validat0r.required() //Required request param
-    'body.banana': validat0r.unique(databaseTable, databaseColumn) //Must be unique
-    'params.banana': validat0r.exists(databaseTable, databaseColumn) //DB row must exist
+    'body.banana': validat0r.unique(dbTable, dbColumn, additionalFilter) //Must be unique
+    'params.banana': validat0r.exists(dbTable, dbColumn, additionalFilter) //DB row must exist
     'headers.banana': validat0r.userRole(userRole) //Restrict to a certain role (admin, user, etc.)
     'query.banana': validat0r.range(min,max) //Must be within a certain range, inclusive
     'query.banana': validat0r.min(number) //Must be equal to or above this number
     'params.banana': validat0r.max(number) //Must be equal to or below this number
     'params.banana': validat0r.number() //Must be a Number
-    'headers.banana': validat0r.integer() //Must be an integer
+    'headers.banana': validat0r.integer() //Must be an Integer
     'body.banana': validat0r.boolean() //Must be a Boolean
     'headers.banana': validat0r.string() //Must be a String
-    'body.banana': validat0r.alphanumeric() //Must be letters or numbers
+    'body.banana': validat0r.alphaNumeric() //Must be letters and/or numbers
     'body.banana': validat0r.json() //Must be JSON
+    'body.banana': validat0r.object() //Must be an Object
+    'body.banana': validat0r.array() //Must be an Array
     'query.banana': validat0r.defaultTo(defaultValue) //Default to a certain value if undefined
     'params.banana': validat0r.defaultToRole(userRole, defaultValue) //Default to a certain value for specific roles
     'query.banana': validat0r.forceTo(defaultValue) //Reassign to a certain value
     'params.banana': validat0r.forceToRole(userRole, defaultValue) //Reassign to a certain value for specific roles
     'body.banana': validat0r.regex(regexString) //Must match a regular expression
     'params.banana': validat0r.email(email) //Must be an email
-
 }
 ```
 
@@ -128,18 +129,38 @@
 }
 ```
 
+# Alternate Design Using A Validation Schema
+[
 
+    {
+        name: String
+        required: Boolean
+        type: String ('query' || 'body' || 'params')
+        dataType: String ('boolean' || 'string' || 'number' || 'integer' || 'range' || 'json' || 'alphanumeric' || 'object' || 'array')
+        range: [min, max]
+        min: Number
+        max: Number
+        userRestrictions: Array [
+            Object {userPath, optionalValue} Value defaults to value of property
+        ]
+        userHooks: Array [
+            Object {conditionalString, evalString}
+        ]
+        dbExists: Array [
+            Object {dbTable, dbColumn, additionalFilter}
+        ]
+        dbUnique: Array [
+            Object {dbTable, dbColumn, additionalFilter}
+        ]
+        dbHooks: Array [
+            { dbTable, selector, column, evalString }
+        ]
+        preHooks: Array [
+            {path, evalString}
+        ]
+        postHooks: Array [
+            {path, evalString}
+        ]
+    }
 
-name: String
-required: Boolean
-type: String ('query' || 'body' || 'params')
-dataType: String ('boolean' || 'string' || 'number' || 'id' || 'range' || 'json')
-range: [min, max]
-dbTable: String ('users' || 'categories' || 'challenges' || 'user_submissions' || 'challenges_categories')
-dbProtected: Boolean
-dbHooks: Object Literal with key (database column to be altered) value (String with code ran through eval()) pairs.
-dbUnique: Boolean
-dbUniqueWhere: Object Literal with key (column to match) value (value to match as a String to be parsed through eval()) using a knex .where()
-evals: Array of Strings (each String is code to be executed via eval() - used for more customized rules
-
-hooks
+]

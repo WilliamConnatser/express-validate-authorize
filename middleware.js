@@ -1,7 +1,8 @@
 class Valid {
     constructor(settings) {
         this.knex = settings.knex;
-        this.user = settings.user;
+        this.userData = settings.user;
+        this.userRole = settings.userRole;
     }
 
     /*
@@ -140,8 +141,16 @@ class Valid {
             .knex(table)
             .where(filter)
             .first()
-            .then(res => {
-                return res !== undefined;
+            .then(data => {
+                return data !== undefined;
+            });
+    }
+
+    uniqueWhere = (table, filter) => {
+        this.existsWhere(table, filter)
+            .then(data => {
+                //Return the opposite of existsWhere
+                return !data;
             });
     }
 
@@ -149,8 +158,8 @@ class Valid {
         return this
             .knex(table)
             .where(filter)
-            .then(res => {
-                return res;
+            .then(data => {
+                return data;
             });
     }
 
